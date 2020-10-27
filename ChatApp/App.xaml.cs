@@ -12,7 +12,7 @@ namespace ChatApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new Views.MainPage();
         }
 
         protected override void OnStart()

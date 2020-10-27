@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ChatApp.ViewModels;
 using Xamarin.Forms;
 
-namespace ChatApp
+namespace ChatApp.Views
 {
     public partial class MainPage : ContentPage
     {
         public MainPage()
         {
             InitializeComponent();
-        }
-
-        private void Button_OnClicked(object sender, EventArgs e)
-        {
-            Console.WriteLine("HiiHoo");
+            
+            BindingContext = new MainPageViewModel();
         }
     }
 }

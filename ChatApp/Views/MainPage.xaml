@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ChatApp.ViewModels;assembly=ChatApp"
+             xmlns:local="clr-namespace:ChatApp"
+             x:Class="ChatApp.Views.MainPage"
+             Title="Hello"
+             BackgroundImageSource="https://aka.ms/campus.jpg">
+    <ContentPage.BindingContext>
+        <viewModels:MainPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentView>
+        <StackLayout Orientation="Vertical">
+            <Label Text="{Binding Header}"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   FontSize="Title"
+                   VerticalTextAlignment="Center"
+                   HeightRequest="300"
+                   FontFamily=""/>
+
+            <StackLayout>
+                <!-- Place new controls here -->
+                <Entry Placeholder="Username..."
+                       BackgroundColor="Wheat"/>
+                <Entry Placeholder="Password..."
+                       BackgroundColor="Wheat"/>
+                <Button Text="Log in"
+                        CornerRadius="100"
+                        Command="{Binding LogInButtonPressed}" />
+            </StackLayout>
+            
+            <StackLayout>
+                <Button Text="No account? Sign up!"
+                        CornerRadius="100"
+                        Command="{Binding SignUpButtonPressed}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentView>
+
+</ContentPage>
