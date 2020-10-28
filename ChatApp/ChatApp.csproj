@@ -10,11 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.4.0.991640" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.1558-pre3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -29,7 +25,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="Assets\Images\BackgroundImage.jpg" />
+      <EmbeddedResource Include="Assets\Fonts\Orbitron.ttf" />
+      <EmbeddedResource Include="Assets\Images\background.jpg" />
       <None Remove="Assets\Fonts\Orbitron.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models" />
     </ItemGroup>
 </Project>

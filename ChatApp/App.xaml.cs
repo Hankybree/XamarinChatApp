@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+[assembly: ExportFont("Orbitron.ttf", Alias = "Orbitron")]
 
 namespace ChatApp
 {
