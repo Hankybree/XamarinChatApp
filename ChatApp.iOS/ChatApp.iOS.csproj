@@ -89,6 +89,7 @@
     <ItemGroup>
         <Compile Include="Main.cs" />
         <Compile Include="AppDelegate.cs" />
+        <Compile Include="Setup\iOSSetup.cs" />
         <None Include="Entitlements.plist" />
         <None Include="Info.plist" />
         <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +107,7 @@
         <Reference Include="Xamarin.iOS" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Autofac" Version="6.0.0" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.1558-pre3" />
     </ItemGroup>
     <ItemGroup>
@@ -113,6 +115,9 @@
             <Project>{F79E6B4D-7911-44F5-9949-FCC8732B8F33}</Project>
             <Name>ChatApp</Name>
         </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Services" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

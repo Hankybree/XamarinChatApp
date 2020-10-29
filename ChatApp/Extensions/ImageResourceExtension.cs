@@ -3,7 +3,7 @@ using System.Reflection;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace ChatApp.Support
+namespace ChatApp.Extensions
 {
     [ContentProperty (nameof(Source))]
     public class ImageResourceExtension : IMarkupExtension

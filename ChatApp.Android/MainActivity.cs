@@ -6,11 +6,13 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Graphics;
+using ChatApp.Android.Setup;
 
 namespace ChatApp.Android
 {
     [Activity(Label = "ChatApp", Theme = "@style/MainTheme", MainLauncher = true,
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, 
+        ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -20,7 +22,7 @@ namespace ChatApp.Android
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+            LoadApplication(new App(new AndroidSetup()));
         }
     }
 }

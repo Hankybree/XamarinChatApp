@@ -5,6 +5,7 @@ using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using ChatApp.Annotations;
+using ChatApp.Views;
 using Xamarin.Forms;
 
 namespace ChatApp.ViewModels
@@ -21,8 +22,8 @@ namespace ChatApp.ViewModels
 
             SignUpButtonPressed = new Command(execute: () =>
             {
-                Header = "You signed up!";
-                Console.WriteLine("Sign up pressed");
+                // Header = "You signed up!";
+                // Console.WriteLine("Sign up pressed");
             }, canExecute: () => !Header.Equals("You signed up!"));
             
             buttonCommands.Add(LogInButtonPressed);

@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ChatApp.Annotations;
+using Xamarin.Forms;
 
 namespace ChatApp.ViewModels
 {

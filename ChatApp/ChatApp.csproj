@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Autofac" Version="6.0.0" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.1558-pre3" />
     </ItemGroup>
 
@@ -28,9 +29,5 @@
       <EmbeddedResource Include="Assets\Fonts\Orbitron.ttf" />
       <EmbeddedResource Include="Assets\Images\background.jpg" />
       <None Remove="Assets\Fonts\Orbitron.ttf" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models" />
     </ItemGroup>
 </Project>

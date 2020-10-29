@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ChatApp.iOS.Setup;
 using Foundation;
 using UIKit;
 
@@ -22,7 +23,8 @@ namespace ChatApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            // Ladda Autofac
+            LoadApplication(new App(new iOSSetup()));
 
             return base.FinishedLaunching(app, options);
         }
