@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ChatApp.ViewModels;assembly=ChatApp"
+             xmlns:extensions="clr-namespace:ChatApp.Extensions;assembly=ChatApp"
+             x:Class="ChatApp.Views.ChatRoomPage"
+             x:DataType="viewModels:ChatRoomPageViewModel"
+             BackgroundImageSource="{extensions:ImageResourceExtension ChatApp.Assets.Images.background.jpg}">
+    <ContentPage.Content>
+        <StackLayout>
+            <ScrollView BackgroundColor="#90ffffff"
+                        HeightRequest="350"
+                        Padding="20"
+                        Margin="10">
+                <StackLayout>
+                    <Label Text="User: Message"/>
+                </StackLayout>
+            </ScrollView>
+            <Editor BackgroundColor="#90ffffff"
+                    Margin="10"
+                    HeightRequest="200"/>
+            <Button Text="Send"
+                    Margin="10"
+                    CornerRadius="100"
+                    BorderWidth="3"
+                    BorderColor="White"
+                    BackgroundColor="Black"
+                    TextColor="White"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

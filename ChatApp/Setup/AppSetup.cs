@@ -1,4 +1,5 @@
 using Autofac;
+using ChatApp.Services;
 using ChatApp.ViewModels;
 
 namespace ChatApp.Setup
@@ -19,6 +20,8 @@ namespace ChatApp.Setup
         {
             // Common config here
             containerBuilder.RegisterType<MainPageViewModel>().SingleInstance();
+            containerBuilder.RegisterType<SignUpPageViewModel>().SingleInstance();
+            containerBuilder.RegisterType<ChatRoomPageViewModel>().SingleInstance();
         }
     }
 }

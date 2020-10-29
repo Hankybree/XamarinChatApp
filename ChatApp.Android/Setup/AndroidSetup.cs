@@ -1,4 +1,6 @@
 using Autofac;
+using ChatApp.Android.Services;
+using ChatApp.Services;
 using ChatApp.Setup;
 
 namespace ChatApp.Android.Setup
@@ -9,6 +11,7 @@ namespace ChatApp.Android.Setup
         {
             base.RegisterDependencies(containerBuilder);
             // Platform specific config here
+            containerBuilder.RegisterType<HelloService>().As<IHelloService>();
         }
     }
 }

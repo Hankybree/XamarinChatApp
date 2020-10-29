@@ -23,8 +23,7 @@ namespace ChatApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            // Ladda Autofac
-            LoadApplication(new App(new iOSSetup()));
+            LoadApplication(new App(new IOSSetup()));
 
             return base.FinishedLaunching(app, options);
         }

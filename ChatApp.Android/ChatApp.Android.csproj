@@ -47,6 +47,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Autofac" Version="6.0.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
         <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0.5" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.1558-pre3" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
@@ -59,6 +60,7 @@
         <Compile Include="MainActivity.cs" />
         <Compile Include="Resources\Resource.Designer.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Services\HelloService.cs" />
         <Compile Include="Setup\AndroidSetup.cs" />
     </ItemGroup>
     <ItemGroup>
@@ -77,9 +79,6 @@
             <Project>{F79E6B4D-7911-44F5-9949-FCC8732B8F33}</Project>
             <Name>ChatApp</Name>
         </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Services" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

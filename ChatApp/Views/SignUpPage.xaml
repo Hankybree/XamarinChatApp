@@ -1,22 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ChatApp.ViewModels;assembly=ChatApp"
              xmlns:extensions="clr-namespace:ChatApp.Extensions;assembly=ChatApp"
-             x:Class="ChatApp.Views.MainPage"
-             x:DataType="viewModels:MainPageViewModel"
+             x:Class="ChatApp.Views.SignUpPage"
+             x:DataType="viewModels:SignUpPageViewModel"
              BackgroundImageSource="{extensions:ImageResourceExtension ChatApp.Assets.Images.background.jpg}">
-    
-    <ContentView>
+    <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Label Text="{Binding Header}"
+            <Label Text="Sign up and join the fun!"
                    TextColor="White"
                    HorizontalOptions="Center"
                    FontSize="28"
                    VerticalTextAlignment="Center"
                    HeightRequest="300"
                    FontFamily="Orbitron"/>
-
+            
             <StackLayout VerticalOptions="CenterAndExpand">
                 <!-- Place new controls here -->
                 <Entry Placeholder="Username..."
@@ -25,25 +25,18 @@
                 <Entry Placeholder="Password..."
                        IsPassword="True"
                        TextColor="White"
-                       PlaceholderColor="White"
-                       />
-                <Button Text="Log in"
+                       PlaceholderColor="White"/>
+                <Entry Placeholder="Confirm password..."
+                       IsPassword="True"
+                       TextColor="White"
+                       PlaceholderColor="White"/>
+                <Button Text="Sign up"
                         CornerRadius="100"
                         BorderWidth="3"
                         BorderColor="White"
                         BackgroundColor="Black"
-                        TextColor="White"
-                        Command="{Binding LogInButtonPressed}" />
-            </StackLayout>
-            
-            <StackLayout>
-                <Button Text="No account? Sign up!"
-                        BackgroundColor="Transparent"
-                        TextColor="White"
-                        VerticalOptions="StartAndExpand"
-                        Command="{Binding SignUpButtonPressed}"/>
+                        TextColor="White"/>
             </StackLayout>
         </StackLayout>
-    </ContentView>
-
+    </ContentPage.Content>
 </ContentPage>
