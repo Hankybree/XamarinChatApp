@@ -18,7 +18,7 @@ namespace ChatApp
 
             AppContainer.Container = setup.CreateContainer();
 
-            MainPage = new ChatRoomPage();
+            MainPage = new SignUpPage();
         }
 
         protected override void OnStart()

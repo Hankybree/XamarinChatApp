@@ -1,4 +1,6 @@
+using System.Net.Http;
 using Autofac;
+using ChatApp.Models.Authentication;
 using ChatApp.Services;
 using ChatApp.ViewModels;
 
@@ -22,6 +24,8 @@ namespace ChatApp.Setup
             containerBuilder.RegisterType<MainPageViewModel>().SingleInstance();
             containerBuilder.RegisterType<SignUpPageViewModel>().SingleInstance();
             containerBuilder.RegisterType<ChatRoomPageViewModel>().SingleInstance();
+            containerBuilder.RegisterType<HttpClient>().SingleInstance();
+            containerBuilder.RegisterType<AuthApi>();
         }
     }
 }

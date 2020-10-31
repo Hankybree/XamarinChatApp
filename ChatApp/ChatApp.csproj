@@ -31,8 +31,4 @@
       <EmbeddedResource Include="Assets\Images\background.jpg" />
       <None Remove="Assets\Fonts\Orbitron.ttf" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\Authentication" />
-    </ItemGroup>
 </Project>

@@ -46,7 +46,7 @@ namespace ChatApp.ViewModels
                 if (header == value || value == null) return;
                 header = value;
                 OnPropertyChanged();
-                RefreshCanExecute();
+                RefreshCanExecute(buttonCommands);
             }
         }
         
@@ -56,13 +56,5 @@ namespace ChatApp.ViewModels
         public ICommand SignUpButtonPressed { private set; get; }
         
         private List<ICommand> buttonCommands = new List<ICommand>();
-
-        private void RefreshCanExecute()
-        {
-            foreach (var command in buttonCommands)
-            {
-                ((Command)command).ChangeCanExecute();
-            }
-        }
     }
 }
