@@ -9,11 +9,11 @@ namespace ChatApp.Models.Authentication
 {
     public class AuthApi
     {
-        private static string _baseUrl = "http://192.168.1.173:4000/auth/";
-        private Uri _signUpUri = new Uri(_baseUrl + "signup");
-        private Uri _logInUri = new Uri(_baseUrl + "login");
+        private const string BaseUrl = "http://192.168.1.173:4000/auth/";
+        private readonly Uri _signUpUri = new Uri(BaseUrl + "signup");
+        private readonly Uri _logInUri = new Uri(BaseUrl + "login");
 
-        private HttpClient _client;
+        private readonly HttpClient _client;
 
         public AuthApi(HttpClient client)
         {
