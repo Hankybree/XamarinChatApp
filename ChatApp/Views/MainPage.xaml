@@ -9,7 +9,7 @@
     
     <ContentView>
         <StackLayout Orientation="Vertical">
-            <Label Text="{Binding Header}"
+            <Label Text="Welcome to BitChat!"
                    TextColor="White"
                    HorizontalOptions="Center"
                    FontSize="28"
@@ -21,12 +21,13 @@
                 <!-- Place new controls here -->
                 <Entry Placeholder="Username..."
                        TextColor="White"
-                       PlaceholderColor="White"/>
+                       PlaceholderColor="White"
+                       Text="{Binding UserName}"/>
                 <Entry Placeholder="Password..."
                        IsPassword="True"
                        TextColor="White"
                        PlaceholderColor="White"
-                       />
+                       Text="{Binding Password}"/>
                 <Button Text="Log in"
                         CornerRadius="100"
                         BorderWidth="3"

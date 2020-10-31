@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,25 +24,40 @@ namespace ChatApp.Models.Authentication
         {
             if (userPassword == confirmPassword)
             {
-                AuthPostBody body = new AuthPostBody(userName, userPassword);
-                HttpContent stringContent = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-            
-                var response = await _client.PostAsync(_signUpUri, stringContent);
-            
-                var content = await response.Content.ReadAsStringAsync();
+                var content = await PostAuth(userName, userPassword, _signUpUri);
+                
                 var result = JsonConvert.DeserializeObject<BaseResponse>(content);
             
                 return result;
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
-        // public async Task<AuthData> LogIn()
-        // {
-        //     
-        // }
+        public async Task<AuthData> LogIn(string userName, string userPassword)
+        {
+            var content = await PostAuth(userName, userPassword, _logInUri);
+            
+            var result = JsonConvert.DeserializeObject<AuthData>(content);
+
+            return result;
+        }
+
+        private async Task<string> PostAuth(string userName, string userPassword, Uri uri)
+        {
+            Dictionary<string, string> body = new Dictionary<string, string>
+            {
+                {"userName", userName},
+                {"userPassword", userPassword}
+            };
+            HttpContent stringContent = new StringContent(JsonConvert.SerializeObject(body), 
+                Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync(uri, stringContent);
+            
+            var content = await response.Content.ReadAsStringAsync();
+
+            return content;
+        }
     }
 }

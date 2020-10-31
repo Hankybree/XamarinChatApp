@@ -5,6 +5,7 @@ using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using ChatApp.Annotations;
+using ChatApp.Models.Authentication;
 using ChatApp.Services;
 using ChatApp.Views;
 using Xamarin.Forms;
@@ -14,15 +15,20 @@ namespace ChatApp.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         private IHelloService _helloService;
-        public MainPageViewModel(IHelloService helloService)
+        public MainPageViewModel(IHelloService helloService, AuthApi authApi)
         {
             _helloService = helloService;
             _helloService.GetMessage();
             
-            LogInButtonPressed = new Command(execute: () =>
+            LogInButtonPressed = new Command(execute: async () =>
             {
-                Header = "You logged in!";
-                Console.WriteLine("Log in pressed");
+                var response = await authApi.LogIn(_userName, _password);
+                
+                Console.WriteLine("ResponseFromServer: Status: " + response.Status + " Message: " + 
+                                  response.Msg + " Token: " + response.Token + " UserName: " + 
+                                  response.User.UserName + " UserId: " + response.User.UserId);
+                UserName = "";
+                Password = "";
             }, canExecute: () => true);
 
             SignUpButtonPressed = new Command(execute: () =>
@@ -33,24 +39,35 @@ namespace ChatApp.ViewModels
             buttonCommands.Add(LogInButtonPressed);
             buttonCommands.Add(SignUpButtonPressed);
         }
-        
-        
+
         // Properties
-        private string header = "Welcome to BitChat!";
-        public string Header
+        private string _userName = "";
+        public string UserName
         {
-            get => header;
+            get => _userName;
             set
             {
-                if (header == value || value == null) return;
-                header = value;
+                if (_userName == value || value == null) return;
+                _userName = value;
+                OnPropertyChanged();
+                RefreshCanExecute(buttonCommands);
+            }
+        }
+        
+        private string _password = "";
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                if (_password == value || value == null) return;
+                _password = value;
                 OnPropertyChanged();
                 RefreshCanExecute(buttonCommands);
             }
         }
         
         // Buttons
-        
         public ICommand LogInButtonPressed { private set; get; }
         public ICommand SignUpButtonPressed { private set; get; }
         
