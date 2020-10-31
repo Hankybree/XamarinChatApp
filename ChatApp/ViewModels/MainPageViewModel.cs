@@ -23,13 +23,12 @@ namespace ChatApp.ViewModels
             {
                 Header = "You logged in!";
                 Console.WriteLine("Log in pressed");
-            }, canExecute: () => !header.Equals("You logged in!"));
+            }, canExecute: () => true);
 
             SignUpButtonPressed = new Command(execute: () =>
-            { 
-                Header = "You signed up!";
-                Console.WriteLine("Sign up pressed");
-            }, canExecute: () => !Header.Equals("You signed up!"));
+            {
+                Console.WriteLine("Go to sign up page");
+            }, canExecute: () => true);
             
             buttonCommands.Add(LogInButtonPressed);
             buttonCommands.Add(SignUpButtonPressed);

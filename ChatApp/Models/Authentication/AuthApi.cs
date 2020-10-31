@@ -19,17 +19,24 @@ namespace ChatApp.Models.Authentication
             _client = client;
         }
 
-        public async Task<BaseResponse> SignUp(string userName, string userPassword)
+        public async Task<BaseResponse> SignUp(string userName, string userPassword, string confirmPassword)
         {
-            AuthPostBody body = new AuthPostBody(userName, userPassword);
-            HttpContent stringContent = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
+            if (userPassword == confirmPassword)
+            {
+                AuthPostBody body = new AuthPostBody(userName, userPassword);
+                HttpContent stringContent = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
             
-            var response = await _client.PostAsync(_signUpUri, stringContent);
+                var response = await _client.PostAsync(_signUpUri, stringContent);
             
-            var content = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<BaseResponse>(content);
+                var content = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<BaseResponse>(content);
             
-            return result;
+                return result;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         // public async Task<AuthData> LogIn()

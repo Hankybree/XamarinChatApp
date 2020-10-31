@@ -21,15 +21,18 @@
                 <!-- Place new controls here -->
                 <Entry Placeholder="Username..."
                        TextColor="White"
-                       PlaceholderColor="White"/>
+                       PlaceholderColor="White"
+                       Text="{Binding UserName}"/>
                 <Entry Placeholder="Password..."
                        IsPassword="True"
                        TextColor="White"
-                       PlaceholderColor="White"/>
+                       PlaceholderColor="White"
+                       Text="{Binding Password}"/>
                 <Entry Placeholder="Confirm password..."
                        IsPassword="True"
                        TextColor="White"
-                       PlaceholderColor="White"/>
+                       PlaceholderColor="White"
+                       Text="{Binding ConfirmPassword}"/>
                 <Button Text="Sign up"
                         CornerRadius="100"
                         BorderWidth="3"
