@@ -4,11 +4,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ChatApp.ViewModels;assembly=ChatApp"
              xmlns:extensions="clr-namespace:ChatApp.Extensions;assembly=ChatApp"
+             Title="Chat Room"
              x:Class="ChatApp.Views.ChatRoomPage"
              x:DataType="viewModels:ChatRoomPageViewModel"
              BackgroundImageSource="{extensions:ImageResourceExtension ChatApp.Assets.Images.background.jpg}">
     <ContentPage.Content>
         <StackLayout>
+            <Button Text="Log out"
+                    Margin="10"
+                    CornerRadius="100"
+                    BorderWidth="3"
+                    BorderColor="White"
+                    BackgroundColor="Black"
+                    TextColor="White"
+                    Command="{Binding LogOutButtonPressed}"/>
             <ScrollView BackgroundColor="#90ffffff"
                         HeightRequest="350"
                         Padding="20"
@@ -26,7 +35,8 @@
                     BorderWidth="3"
                     BorderColor="White"
                     BackgroundColor="Black"
-                    TextColor="White"/>
+                    TextColor="White"
+                    Command="{Binding SendButtonPressed}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

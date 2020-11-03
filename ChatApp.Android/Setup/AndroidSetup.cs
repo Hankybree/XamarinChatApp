@@ -12,6 +12,7 @@ namespace ChatApp.Android.Setup
             base.RegisterDependencies(containerBuilder);
             // Platform specific config here
             containerBuilder.RegisterType<HelloService>().As<IHelloService>();
+            containerBuilder.RegisterType<Preferences>().As<IPreferences>();
         }
     }
 }

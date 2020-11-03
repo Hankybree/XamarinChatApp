@@ -1,38 +1,26 @@
 using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Net.WebSockets;
+using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace ChatApp.Models.Chat
 {
     public class ChatClient
     {
-        private const string BaseUrl = "http://192.168.1.173:4000/chat/";
-        private readonly Uri _messageUri = new Uri(BaseUrl + "messages");
-        
-        private readonly string _token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImR1ZGRhbiIsInVzZXJJZCI6NSwiaWF0IjoxNjA0MTYwMDkzLCJleHAiOjE2MDQ3NjQ4OTN9.WerB0slubbjZi3R2nIV7yr_5bEmnNkUX9uPcVIewrRg";
+        private readonly Uri _socketUri = new Uri(Keys.BaseSocketUrl);
 
-        private readonly HttpClient _client;
+        private ClientWebSocket _socket;
 
-        public ChatClient(HttpClient client)
+        public ChatClient(ClientWebSocket socket)
         {
-            _client = client;
+            _socket = socket;
         }
-        
-        public async Task<Message[]> GetMessages()
-        {
-            _client.DefaultRequestHeaders.Authorization = 
-                new AuthenticationHeaderValue("Bearer", _token);
 
-            var response = await _client.GetAsync(_messageUri);
-            
-            var content = await response.Content.ReadAsStringAsync();  
-            
-            var result = JsonConvert.DeserializeObject<Message[]>(content);
-
-            return result;
-        }
+        // private async Task Connect()
+        // {
+        //     await _socket.ConnectAsync(_socketUri, CancellationToken.None);
+        //
+        //     _socket.CloseAsync((WebSocketCloseStatus) 0, null, CancellationToken.None);
+        // }
     }
 }

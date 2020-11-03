@@ -14,12 +14,12 @@ namespace ChatApp.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private IHelloService _helloService;
-        public MainPageViewModel(IHelloService helloService, AuthApi authApi)
+        public MainPageViewModel(IPreferences preferences, INavigationService navigation, AuthApi authApi)
         {
-            _helloService = helloService;
-            _helloService.GetMessage();
-            
+            if (preferences.GetString("token") != null)
+            {
+                
+            }
             LogInButtonPressed = new Command(execute: async () =>
             {
                 var response = await authApi.LogIn(_userName, _password);
@@ -31,9 +31,9 @@ namespace ChatApp.ViewModels
                 Password = "";
             }, canExecute: () => true);
 
-            SignUpButtonPressed = new Command(execute: () =>
+            SignUpButtonPressed = new Command(execute: async () =>
             {
-                Console.WriteLine("Go to sign up page");
+                await navigation.PushAsync(new SignUpPage());
             }, canExecute: () => true);
             
             buttonCommands.Add(LogInButtonPressed);

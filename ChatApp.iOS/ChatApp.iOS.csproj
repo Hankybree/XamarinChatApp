@@ -90,6 +90,7 @@
         <Compile Include="Main.cs" />
         <Compile Include="AppDelegate.cs" />
         <Compile Include="Services\HelloService.cs" />
+        <Compile Include="Services\Preferences.cs" />
         <Compile Include="Setup\IOSSetup.cs" />
         <None Include="Entitlements.plist" />
         <None Include="Info.plist" />

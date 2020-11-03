@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ChatApp.ViewModels;assembly=ChatApp"
              xmlns:extensions="clr-namespace:ChatApp.Extensions;assembly=ChatApp"
+             Title="Log In"
              x:Class="ChatApp.Views.MainPage"
              x:DataType="viewModels:MainPageViewModel"
              BackgroundImageSource="{extensions:ImageResourceExtension ChatApp.Assets.Images.background.jpg}">

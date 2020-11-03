@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using ChatApp.Models;
 using ChatApp.Models.Authentication;
+using ChatApp.Services;
 using Xamarin.Forms;
 
 namespace ChatApp.ViewModels
 {
     public class SignUpPageViewModel : BaseViewModel
     {
-        public SignUpPageViewModel(AuthApi authApi)
+        public SignUpPageViewModel(INavigationService navigation, AuthApi authApi)
         {
             SignUpButtonPressed = new Command(execute: async () =>
             {
@@ -25,7 +26,11 @@ namespace ChatApp.ViewModels
                 UserName = "";
                 Password = "";
                 ConfirmPassword = "";
+
+                await navigation.PopAsync();
             }, canExecute: () => true);
+            
+            buttonCommands.Add(SignUpButtonPressed);
         }
         
         // Properties

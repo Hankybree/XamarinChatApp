@@ -9,9 +9,8 @@ namespace ChatApp.Models.Authentication
 {
     public class AuthApi
     {
-        private const string BaseUrl = "http://192.168.1.173:4000/auth/";
-        private readonly Uri _signUpUri = new Uri(BaseUrl + "signup");
-        private readonly Uri _logInUri = new Uri(BaseUrl + "login");
+        private readonly Uri _signUpUri = new Uri(Keys.BaseApiUrl + "/auth/signup");
+        private readonly Uri _logInUri = new Uri(Keys.BaseApiUrl + "/auth/login");
 
         private readonly HttpClient _client;
 

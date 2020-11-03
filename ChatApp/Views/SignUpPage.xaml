@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ChatApp.ViewModels;assembly=ChatApp"
              xmlns:extensions="clr-namespace:ChatApp.Extensions;assembly=ChatApp"
+             Title="Sign Up"
              x:Class="ChatApp.Views.SignUpPage"
              x:DataType="viewModels:SignUpPageViewModel"
              BackgroundImageSource="{extensions:ImageResourceExtension ChatApp.Assets.Images.background.jpg}">

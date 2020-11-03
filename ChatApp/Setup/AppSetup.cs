@@ -1,8 +1,10 @@
 using System.Net.Http;
 using Autofac;
 using ChatApp.Models.Authentication;
+using ChatApp.Models.Chat;
 using ChatApp.Services;
 using ChatApp.ViewModels;
+using Xamarin.Forms;
 
 namespace ChatApp.Setup
 {
@@ -25,7 +27,9 @@ namespace ChatApp.Setup
             containerBuilder.RegisterType<SignUpPageViewModel>().SingleInstance();
             containerBuilder.RegisterType<ChatRoomPageViewModel>().SingleInstance();
             containerBuilder.RegisterType<HttpClient>().SingleInstance();
-            containerBuilder.RegisterType<AuthApi>();
+            containerBuilder.RegisterType<AuthApi>().SingleInstance();
+            containerBuilder.RegisterType<ChatApi>().SingleInstance();
+            containerBuilder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
         }
     }
 }
