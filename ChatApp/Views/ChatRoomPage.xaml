@@ -23,7 +23,7 @@
                         Padding="20"
                         Margin="10">
                 <StackLayout>
-                    <Label Text="User: Message"/>
+                    <Label Text="{Binding Text}"/>
                 </StackLayout>
             </ScrollView>
             <Editor BackgroundColor="#90ffffff"

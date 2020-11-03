@@ -17,25 +17,21 @@ namespace ChatApp.ViewModels
     {
         private readonly AuthApi _authApi;
         private readonly INavigationService _navigation;
+        private readonly IPreferences _preferences;
         
         public MainPageViewModel(IPreferences preferences, INavigationService navigation, 
             AuthApi authApi)
         {
             _authApi = authApi;
             _navigation = navigation;
+            _preferences = preferences;
             
-            if (preferences.GetString(Keys.TokenString) != null)
-            {
-                ValidateSession();
-            }
+            ValidateSession();
+            
             LogInButtonPressed = new Command(execute: async () =>
             {
                 var response = await authApi.LogIn(_userName, _password);
                 
-                // Console.WriteLine("ResponseFromServer: Status: " + response.Status + " Message: " + 
-                //                   response.Msg + " Token: " + response.Token + " UserName: " + 
-                //                   response.User.UserName + " UserId: " + response.User.UserId);
-
                 if (response.Status == 1)
                 {
                     UserName = "";
@@ -93,11 +89,14 @@ namespace ChatApp.ViewModels
         // Methods
         private async void ValidateSession()
         {
-            var result = await _authApi.ValidateSession();
-
-            if (result.Status == 1)
+            if (_preferences.GetString(Keys.TokenString) != null)
             {
-                await _navigation.PushModalAsync(new ChatRoomPage());
+                var result = await _authApi.ValidateSession();
+
+                if (result.Status == 1)
+                {
+                    await _navigation.PushModalAsync(new ChatRoomPage());
+                }
             }
         }
     }

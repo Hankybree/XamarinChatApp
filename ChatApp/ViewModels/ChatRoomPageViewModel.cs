@@ -9,12 +9,13 @@ namespace ChatApp.ViewModels
 {
     public class ChatRoomPageViewModel : BaseViewModel
     {
-        private ChatApi _chatApi;
-
+        private readonly ChatApi _chatApi;
         public ChatRoomPageViewModel(IPreferences preferences, INavigationService navigation, 
             ChatApi chatApi)
         {
             _chatApi = chatApi;
+            
+            GetMessages();
             
             SendButtonPressed = new Command(execute: () =>
             {
@@ -33,11 +34,32 @@ namespace ChatApp.ViewModels
         
         // Properties
         public ObservableCollection<Message> Items { get; }
-        
+
+        private string _text = "message";
+        public string Text
+        {
+            get => _text;
+            set
+            {
+                if (_text == value || value == null) return;
+                _text = value;
+                OnPropertyChanged();
+                RefreshCanExecute(buttonCommands);
+            }
+        }
+
         // Buttons
         public ICommand SendButtonPressed { private set; get; }
         public ICommand LogOutButtonPressed { private set; get; }
         
         private List<ICommand> buttonCommands = new List<ICommand>();
+        
+        // Methods
+        private async void GetMessages()
+        {
+            var messages = await _chatApi.GetMessages();
+
+            Text = messages[0].Msg;
+        }
     }
 }
