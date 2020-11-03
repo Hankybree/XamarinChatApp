@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using ChatApp.Services;
 using Newtonsoft.Json;
 
 namespace ChatApp.Models.Authentication
@@ -11,13 +13,31 @@ namespace ChatApp.Models.Authentication
     {
         private readonly Uri _signUpUri = new Uri(Keys.BaseApiUrl + "/auth/signup");
         private readonly Uri _logInUri = new Uri(Keys.BaseApiUrl + "/auth/login");
+        private readonly Uri _validateUri = new Uri(Keys.BaseApiUrl + "/auth/validate");
 
         private readonly HttpClient _client;
+        private readonly IPreferences _preferences;
 
-        public AuthApi(HttpClient client)
+        public AuthApi(IPreferences preferences, HttpClient client)
         {
             _client = client;
+            _preferences = preferences;
         }
+
+        public async Task<BaseResponse> ValidateSession()
+        {
+            _client.DefaultRequestHeaders.Authorization = 
+                new AuthenticationHeaderValue("Bearer", _preferences.GetString
+                    (Keys.TokenString));
+            
+            var response = await _client.GetAsync(_validateUri);
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<BaseResponse>(content);
+
+            return result;
+        } 
 
         public async Task<BaseResponse> SignUp(string userName, string userPassword, string confirmPassword)
         {

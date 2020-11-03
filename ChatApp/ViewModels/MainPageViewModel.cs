@@ -5,6 +5,7 @@ using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using ChatApp.Annotations;
+using ChatApp.Models;
 using ChatApp.Models.Authentication;
 using ChatApp.Services;
 using ChatApp.Views;
@@ -14,21 +15,37 @@ namespace ChatApp.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        public MainPageViewModel(IPreferences preferences, INavigationService navigation, AuthApi authApi)
+        private readonly AuthApi _authApi;
+        private readonly INavigationService _navigation;
+        
+        public MainPageViewModel(IPreferences preferences, INavigationService navigation, 
+            AuthApi authApi)
         {
-            if (preferences.GetString("token") != null)
+            _authApi = authApi;
+            _navigation = navigation;
+            
+            if (preferences.GetString(Keys.TokenString) != null)
             {
-                
+                ValidateSession();
             }
             LogInButtonPressed = new Command(execute: async () =>
             {
                 var response = await authApi.LogIn(_userName, _password);
                 
-                Console.WriteLine("ResponseFromServer: Status: " + response.Status + " Message: " + 
-                                  response.Msg + " Token: " + response.Token + " UserName: " + 
-                                  response.User.UserName + " UserId: " + response.User.UserId);
-                UserName = "";
-                Password = "";
+                // Console.WriteLine("ResponseFromServer: Status: " + response.Status + " Message: " + 
+                //                   response.Msg + " Token: " + response.Token + " UserName: " + 
+                //                   response.User.UserName + " UserId: " + response.User.UserId);
+
+                if (response.Status == 1)
+                {
+                    UserName = "";
+                    Password = "";   
+                    
+                    preferences.SetString(Keys.TokenString, response.Token);
+                    preferences.SetString(Keys.UserNameString, response.User.UserName);
+
+                    await navigation.PushModalAsync(new ChatRoomPage());
+                }
             }, canExecute: () => true);
 
             SignUpButtonPressed = new Command(execute: async () =>
@@ -72,5 +89,16 @@ namespace ChatApp.ViewModels
         public ICommand SignUpButtonPressed { private set; get; }
         
         private List<ICommand> buttonCommands = new List<ICommand>();
+        
+        // Methods
+        private async void ValidateSession()
+        {
+            var result = await _authApi.ValidateSession();
+
+            if (result.Status == 1)
+            {
+                await _navigation.PushModalAsync(new ChatRoomPage());
+            }
+        }
     }
 }

@@ -20,5 +20,10 @@ namespace ChatApp.Views
 
             BindingContext = AppContainer.Container.Resolve<ChatRoomPageViewModel>();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace ChatApp.Services
     {
         Task PushAsync(Page page);
         Task<Page> PopAsync();
+        Task PushModalAsync(Page page);
+        Task<Page> PopModalAsync();
     }
 }

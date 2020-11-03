@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ChatApp.Models.Chat;
+using ChatApp.Services;
 using Xamarin.Forms;
 
 namespace ChatApp.ViewModels
@@ -9,7 +11,8 @@ namespace ChatApp.ViewModels
     {
         private ChatApi _chatApi;
 
-        public ChatRoomPageViewModel(ChatApi chatApi)
+        public ChatRoomPageViewModel(IPreferences preferences, INavigationService navigation, 
+            ChatApi chatApi)
         {
             _chatApi = chatApi;
             
@@ -17,9 +20,11 @@ namespace ChatApp.ViewModels
             {
                 
             }, canExecute: () => true);
-            LogOutButtonPressed = new Command(execute: () =>
+            LogOutButtonPressed = new Command(execute: async() =>
             {
-                
+                preferences.ClearPreferences();
+
+                await navigation.PopModalAsync();
             }, canExecute: () => true);
             
             buttonCommands.Add(SendButtonPressed);
@@ -27,7 +32,7 @@ namespace ChatApp.ViewModels
         }
         
         // Properties
-        
+        public ObservableCollection<Message> Items { get; }
         
         // Buttons
         public ICommand SendButtonPressed { private set; get; }

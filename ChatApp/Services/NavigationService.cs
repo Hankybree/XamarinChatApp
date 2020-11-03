@@ -14,5 +14,15 @@ namespace ChatApp.Services
         {
             return await Application.Current.MainPage.Navigation.PopAsync();
         }
+        
+        public async Task PushModalAsync(Page page)
+        {
+            await Application.Current.MainPage.Navigation.PushModalAsync(page);
+        }
+
+        public async Task<Page> PopModalAsync()
+        {
+            return await Application.Current.MainPage.Navigation.PopModalAsync();
+        }
     }
 }
