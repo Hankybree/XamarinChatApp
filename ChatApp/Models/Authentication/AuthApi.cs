@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace ChatApp.Models.Authentication
 {
-    public class AuthApi
+    public class AuthApi : IAuthApi
     {
         private readonly Uri _signUpUri = new Uri(Keys.BaseApiUrl + "/auth/signup");
         private readonly Uri _logInUri = new Uri(Keys.BaseApiUrl + "/auth/login");

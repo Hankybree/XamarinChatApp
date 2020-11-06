@@ -15,12 +15,12 @@ namespace ChatApp.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private readonly AuthApi _authApi;
+        private readonly IAuthApi _authApi;
         private readonly INavigationService _navigation;
         private readonly IPreferences _preferences;
         
         public MainPageViewModel(IPreferences preferences, INavigationService navigation, 
-            AuthApi authApi)
+            IAuthApi authApi)
         {
             _authApi = authApi;
             _navigation = navigation;
@@ -40,13 +40,13 @@ namespace ChatApp.ViewModels
                     preferences.SetString(Keys.TokenString, response.Token);
                     preferences.SetString(Keys.UserNameString, response.User.UserName);
 
-                    await navigation.PushModalAsync(new ChatRoomPage());
+                    await navigation.PushModalAsync(Keys.ChatRoomPageString);
                 }
             }, canExecute: () => true);
 
             SignUpButtonPressed = new Command(execute: async () =>
             {
-                await navigation.PushAsync(new SignUpPage());
+                await navigation.PushAsync(Keys.SignUpPageString);
             }, canExecute: () => true);
             
             buttonCommands.Add(LogInButtonPressed);
@@ -66,7 +66,7 @@ namespace ChatApp.ViewModels
                 RefreshCanExecute(buttonCommands);
             }
         }
-        
+
         private string _password = "";
         public string Password
         {
@@ -95,7 +95,7 @@ namespace ChatApp.ViewModels
 
                 if (result.Status == 1)
                 {
-                    await _navigation.PushModalAsync(new ChatRoomPage());
+                    await _navigation.PushModalAsync(Keys.ChatRoomPageString);
                 }
             }
         }

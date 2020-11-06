@@ -27,7 +27,7 @@ namespace ChatApp.Setup
             containerBuilder.RegisterType<SignUpPageViewModel>().SingleInstance();
             containerBuilder.RegisterType<ChatRoomPageViewModel>().SingleInstance();
             containerBuilder.RegisterType<HttpClient>().SingleInstance();
-            containerBuilder.RegisterType<AuthApi>().SingleInstance();
+            containerBuilder.RegisterType<AuthApi>().As<IAuthApi>().SingleInstance();
             containerBuilder.RegisterType<ChatApi>().SingleInstance();
             containerBuilder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
         }

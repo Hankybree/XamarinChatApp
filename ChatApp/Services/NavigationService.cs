@@ -1,13 +1,24 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using ChatApp.Models;
+using ChatApp.Views;
 using Xamarin.Forms;
 
 namespace ChatApp.Services
 {
     public class NavigationService : INavigationService
     {
-        public async Task PushAsync(Page page)
+        private Dictionary<string, Type> _pages = new Dictionary<string, Type>()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(page);
+            {Keys.ChatRoomPageString, typeof(ChatRoomPage)},
+            {Keys.SignUpPageString, typeof(SignUpPage)}
+            
+        };
+        
+        public async Task PushAsync(string page)
+        {
+            await Application.Current.MainPage.Navigation.PushAsync((Page)Activator.CreateInstance(_pages[page]));
         }
 
         public async Task<Page> PopAsync()
@@ -15,9 +26,9 @@ namespace ChatApp.Services
             return await Application.Current.MainPage.Navigation.PopAsync();
         }
         
-        public async Task PushModalAsync(Page page)
+        public async Task PushModalAsync(string page)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(page);
+            await Application.Current.MainPage.Navigation.PushModalAsync((Page)Activator.CreateInstance(_pages[page]));
         }
 
         public async Task<Page> PopModalAsync()

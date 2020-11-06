@@ -5,9 +5,9 @@ namespace ChatApp.Services
 {
     public interface INavigationService
     {
-        Task PushAsync(Page page);
+        Task PushAsync(string page);
         Task<Page> PopAsync();
-        Task PushModalAsync(Page page);
+        Task PushModalAsync(string page);
         Task<Page> PopModalAsync();
     }
 }

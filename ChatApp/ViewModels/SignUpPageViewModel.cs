@@ -10,7 +10,7 @@ namespace ChatApp.ViewModels
 {
     public class SignUpPageViewModel : BaseViewModel
     {
-        public SignUpPageViewModel(INavigationService navigation, AuthApi authApi)
+        public SignUpPageViewModel(INavigationService navigation, IAuthApi authApi)
         {
             SignUpButtonPressed = new Command(execute: async () =>
             {
