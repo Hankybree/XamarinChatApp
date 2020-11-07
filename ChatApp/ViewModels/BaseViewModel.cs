@@ -9,6 +9,7 @@ namespace ChatApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        private bool _busy;
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
@@ -22,6 +23,17 @@ namespace ChatApp.ViewModels
             foreach (var command in buttonCommands)
             {
                 ((Command)command).ChangeCanExecute();
+            }
+        }
+        
+        public bool IsBusy
+        {
+            get => _busy;
+            set
+            {
+                if (_busy == value) return;
+                _busy = value;
+                OnPropertyChanged();
             }
         }
     }

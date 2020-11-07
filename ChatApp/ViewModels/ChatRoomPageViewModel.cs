@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ChatApp.Models.Chat;
 using ChatApp.Services;
@@ -15,7 +16,8 @@ namespace ChatApp.ViewModels
         {
             _chatApi = chatApi;
             
-            GetMessages();
+            Items = new ObservableCollection<Message>();
+            LoadMessages();
             
             SendButtonPressed = new Command(execute: () =>
             {
@@ -27,6 +29,8 @@ namespace ChatApp.ViewModels
 
                 await navigation.PopModalAsync();
             }, canExecute: () => true);
+            ExecuteLoadMessages = new Command(() => LoadMessages(), 
+                () => true);
             
             buttonCommands.Add(SendButtonPressed);
             buttonCommands.Add(LogOutButtonPressed);
@@ -51,15 +55,30 @@ namespace ChatApp.ViewModels
         // Buttons
         public ICommand SendButtonPressed { private set; get; }
         public ICommand LogOutButtonPressed { private set; get; }
+        public ICommand ExecuteLoadMessages { private set; get; }
         
         private List<ICommand> buttonCommands = new List<ICommand>();
         
         // Methods
-        private async void GetMessages()
+        private async Task<Message[]> GetMessages()
         {
-            var messages = await _chatApi.GetMessages();
+            var messageData = await _chatApi.GetMessages();
 
-            Text = messages[0].Msg;
+            return messageData.Messages;
+
+            // Text = messageData.Messages[0].UserName + ": " + messageData.Messages[0].Content;
+        }
+
+        private async void LoadMessages()
+        {
+            IsBusy = true;
+            var items = await GetMessages();
+            Items.Clear();
+            foreach (var item in items)
+            {
+                Items.Add(item);   
+            }
+            IsBusy = false;
         }
     }
 }

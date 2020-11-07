@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ChatApp.ViewModels;assembly=ChatApp"
              xmlns:extensions="clr-namespace:ChatApp.Extensions;assembly=ChatApp"
+             xmlns:chatModels="clr-namespace:ChatApp.Models.Chat;assembly=ChatApp"
              Title="Chat Room"
              x:Class="ChatApp.Views.ChatRoomPage"
              x:DataType="viewModels:ChatRoomPageViewModel"
@@ -18,14 +19,46 @@
                     BackgroundColor="Black"
                     TextColor="White"
                     Command="{Binding LogOutButtonPressed}"/>
-            <ScrollView BackgroundColor="#90ffffff"
+            <!--<ScrollView BackgroundColor="#90ffffff"
                         HeightRequest="350"
                         Padding="20"
                         Margin="10">
                 <StackLayout>
                     <Label Text="{Binding Text}"/>
                 </StackLayout>
-            </ScrollView>
+            </ScrollView>-->
+            <RefreshView Command="{Binding ExecuteLoadMessages}"
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <CollectionView x:Name="ChatMessageView"
+                                ItemsSource="{Binding Items}"
+                                SelectionMode="None"
+                                BackgroundColor="#90ffffff"
+                                HeightRequest="350"
+                                Margin="10">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" 
+                                  Margin="12" 
+                                  x:DataType="chatModels:Message">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="3*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding UserName}"
+                                       Grid.Row="1"
+                                       Grid.Column="1"/>
+                                <Label Text="{Binding Content}"
+                                    Grid.Row="1"
+                                    Grid.Column="2"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
             <Editor BackgroundColor="#90ffffff"
                     Margin="10"
                     HeightRequest="200"/>

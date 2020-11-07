@@ -22,7 +22,7 @@ namespace ChatApp.Models.Chat
             _preferences = preferences;
         }
 
-        public async Task<Message[]> GetMessages()
+        public async Task<MessageData> GetMessages()
         {
             _client.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue("Bearer", 
@@ -32,7 +32,7 @@ namespace ChatApp.Models.Chat
             
             var content = await response.Content.ReadAsStringAsync();  
             
-            var result = JsonConvert.DeserializeObject<Message[]>(content);
+            var result = JsonConvert.DeserializeObject<MessageData>(content);
 
             return result;
         }
