@@ -71,8 +71,6 @@ namespace ChatApp.ViewModels
             var messageData = await _chatApi.GetMessages();
 
             return messageData.Messages;
-
-            // Text = messageData.Messages[0].UserName + ": " + messageData.Messages[0].Content;
         }
 
         public async void LoadMessages()
