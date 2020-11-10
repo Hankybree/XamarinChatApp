@@ -77,8 +77,10 @@ namespace ChatApp.Models.Chat
                 if (result.MessageType != WebSocketMessageType.Text)
                     break;
                 var messageBytes = message.Skip(message.Offset).Take(result.Count).ToArray();
-                string receivedMessage = Encoding.UTF8.GetString(messageBytes);
-                Console.WriteLine(receivedMessage);
+                var receivedMessage = Encoding.UTF8.GetString(messageBytes);
+                var values = receivedMessage.Split('|');
+                var messageObject = new Message(values[0], values[1]);
+                Console.WriteLine(messageObject.UserName + " " + messageObject.Content);
             } 
             while (!result.EndOfMessage);
             // Push to view model to update UI
