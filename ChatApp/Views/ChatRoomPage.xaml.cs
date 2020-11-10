@@ -14,16 +14,25 @@ namespace ChatApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChatRoomPage : ContentPage
     {
+        private ChatRoomPageViewModel _chatRoomPageViewModel;
         public ChatRoomPage()
         {
             InitializeComponent();
 
-            BindingContext = AppContainer.Container.Resolve<ChatRoomPageViewModel>();
+            BindingContext = _chatRoomPageViewModel = AppContainer.Container.Resolve<ChatRoomPageViewModel>();
         }
 
         protected override void OnAppearing()
         {
+            _chatRoomPageViewModel.LoadMessages();
+            _chatRoomPageViewModel.Connect();
             base.OnAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            _chatRoomPageViewModel.Disconnect();
+            base.OnDisappearing();
         }
 
         protected override bool OnBackButtonPressed()

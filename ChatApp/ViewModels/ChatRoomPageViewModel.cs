@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -5,23 +6,28 @@ using System.Windows.Input;
 using ChatApp.Models.Chat;
 using ChatApp.Services;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace ChatApp.ViewModels
 {
     public class ChatRoomPageViewModel : BaseViewModel
     {
         private readonly ChatApi _chatApi;
+        private readonly ChatClient _chatClient;
+        
         public ChatRoomPageViewModel(IPreferences preferences, INavigationService navigation, 
-            ChatApi chatApi)
+            ChatApi chatApi, ChatClient chatClient)
         {
             _chatApi = chatApi;
+            _chatClient = chatClient;
             
             Items = new ObservableCollection<Message>();
-            LoadMessages();
+            //LoadMessages();
             
-            SendButtonPressed = new Command(execute: () =>
+            SendButtonPressed = new Command(execute: async () =>
             {
-                
+                await _chatClient.SendMessage(_message);
+                Message = "";
             }, canExecute: () => true);
             LogOutButtonPressed = new Command(execute: async() =>
             {
@@ -39,14 +45,14 @@ namespace ChatApp.ViewModels
         // Properties
         public ObservableCollection<Message> Items { get; }
 
-        private string _text = "message";
-        public string Text
+        private string _message = "";
+        public string Message
         {
-            get => _text;
+            get => _message;
             set
             {
-                if (_text == value || value == null) return;
-                _text = value;
+                if (_message == value || value == null) return;
+                _message = value;
                 OnPropertyChanged();
                 RefreshCanExecute(buttonCommands);
             }
@@ -69,7 +75,7 @@ namespace ChatApp.ViewModels
             // Text = messageData.Messages[0].UserName + ": " + messageData.Messages[0].Content;
         }
 
-        private async void LoadMessages()
+        public async void LoadMessages()
         {
             IsBusy = true;
             var items = await GetMessages();
@@ -79,6 +85,21 @@ namespace ChatApp.ViewModels
                 Items.Add(item);   
             }
             IsBusy = false;
+        }
+
+        public void Connect()
+        {
+            _chatClient.Connect();
+        }
+
+        public void Disconnect()
+        {
+            _chatClient.Disconnect();
+        }
+        
+        private async void SpeakNowDefaultSettings()
+        {
+            await TextToSpeech.SpeakAsync("Hello World");
         }
     }
 }

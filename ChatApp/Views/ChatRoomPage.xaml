@@ -19,14 +19,6 @@
                     BackgroundColor="Black"
                     TextColor="White"
                     Command="{Binding LogOutButtonPressed}"/>
-            <!--<ScrollView BackgroundColor="#90ffffff"
-                        HeightRequest="350"
-                        Padding="20"
-                        Margin="10">
-                <StackLayout>
-                    <Label Text="{Binding Text}"/>
-                </StackLayout>
-            </ScrollView>-->
             <RefreshView Command="{Binding ExecuteLoadMessages}"
                          IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
                 <CollectionView x:Name="ChatMessageView"
@@ -61,7 +53,8 @@
             </RefreshView>
             <Editor BackgroundColor="#90ffffff"
                     Margin="10"
-                    HeightRequest="200"/>
+                    HeightRequest="200"
+                    Text="{Binding Message}"/>
             <Button Text="Send"
                     Margin="10"
                     CornerRadius="100"

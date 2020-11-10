@@ -1,4 +1,5 @@
 using System.Net.Http;
+using System.Net.WebSockets;
 using Autofac;
 using ChatApp.Models.Authentication;
 using ChatApp.Models.Chat;
@@ -27,8 +28,10 @@ namespace ChatApp.Setup
             containerBuilder.RegisterType<SignUpPageViewModel>().SingleInstance();
             containerBuilder.RegisterType<ChatRoomPageViewModel>().SingleInstance();
             containerBuilder.RegisterType<HttpClient>().SingleInstance();
+            //containerBuilder.RegisterType<ClientWebSocket>();
             containerBuilder.RegisterType<AuthApi>().As<IAuthApi>().SingleInstance();
             containerBuilder.RegisterType<ChatApi>().SingleInstance();
+            containerBuilder.RegisterType<ChatClient>().SingleInstance();
             containerBuilder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
         }
     }
