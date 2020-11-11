@@ -24,7 +24,7 @@ namespace ChatApp.Models.Chat
             observers = new List<IObserver<Message>>();
         }
 
-        public async void Connect()
+        private async void Connect()
         {
             try
             {

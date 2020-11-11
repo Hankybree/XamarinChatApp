@@ -2,7 +2,6 @@ namespace ChatApp.Models
 {
     public static class Keys
     {
-        private const string _localUrl = "192.168.1.173:4000";
         private const string _globalUrl = "195.201.32.3:4000";
 
         public const string TokenString = "token";
