@@ -10,7 +10,7 @@ namespace ChatApp.ViewModels
 {
     public class SignUpPageViewModel : BaseViewModel
     {
-        public SignUpPageViewModel(INavigationService navigation, IAuthApi authApi)
+        public SignUpPageViewModel(INavigationService navigation, IAuthApi authApi, Speaker speaker)
         {
             SignUpButtonPressed = new Command(execute: async () =>
             {
@@ -18,16 +18,22 @@ namespace ChatApp.ViewModels
 
                 if (response == null)
                 {
-                    Console.WriteLine("Passwords does not match");
+                    await speaker.Speak("Passwords does not match");
                     return;
                 }
-                
-                Console.WriteLine("ResponseFromServer: Status " + response.Status + " message: " + response.Msg);
-                UserName = "";
-                Password = "";
-                ConfirmPassword = "";
 
-                await navigation.PopAsync();
+                if (response.Status == 1)
+                {
+                    UserName = "";
+                    Password = "";
+                    ConfirmPassword = "";
+
+                    await navigation.PopAsync();
+                }
+                else
+                {
+                    await speaker.Speak(response.Msg);
+                }
             }, canExecute: () => true);
             
             buttonCommands.Add(SignUpButtonPressed);

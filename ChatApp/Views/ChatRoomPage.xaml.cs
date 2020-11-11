@@ -14,7 +14,7 @@ namespace ChatApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChatRoomPage : ContentPage
     {
-        private ChatRoomPageViewModel _chatRoomPageViewModel;
+        private readonly ChatRoomPageViewModel _chatRoomPageViewModel;
         public ChatRoomPage()
         {
             InitializeComponent();

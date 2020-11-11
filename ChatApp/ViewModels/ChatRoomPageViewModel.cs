@@ -10,7 +10,7 @@ using Xamarin.Essentials;
 
 namespace ChatApp.ViewModels
 {
-    public class ChatRoomPageViewModel : BaseViewModel
+    public class ChatRoomPageViewModel : BaseViewModel, IObserver<Message>
     {
         private readonly ChatApi _chatApi;
         private readonly ChatClient _chatClient;
@@ -22,8 +22,7 @@ namespace ChatApp.ViewModels
             _chatClient = chatClient;
             
             Items = new ObservableCollection<Message>();
-            //LoadMessages();
-            
+
             SendButtonPressed = new Command(execute: async () =>
             {
                 await _chatClient.SendMessage(_message);
@@ -43,6 +42,7 @@ namespace ChatApp.ViewModels
         }
         
         // Properties
+        private IDisposable _unSubscriber;
         public ObservableCollection<Message> Items { get; }
 
         private string _message = "";
@@ -80,24 +80,46 @@ namespace ChatApp.ViewModels
             Items.Clear();
             foreach (var item in items)
             {
-                Items.Add(item);   
+                Items.Add(item);
             }
             IsBusy = false;
         }
 
         public void Connect()
         {
-            _chatClient.Connect();
+            Subscribe(_chatClient);
+            //_chatClient.Connect();
         }
 
         public void Disconnect()
         {
             _chatClient.Disconnect();
+            Unsubscribe();
         }
-        
-        private async void SpeakNowDefaultSettings()
+
+        // Observer
+        private void Subscribe(IObservable<Message> provider)
         {
-            await TextToSpeech.SpeakAsync("Hello World");
+            _unSubscriber = provider.Subscribe(this);
+        }
+
+        private void Unsubscribe()
+        {
+            _unSubscriber.Dispose();
+        }
+        public void OnCompleted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNext(Message value)
+        {
+            Items.Add(value);
         }
     }
 }

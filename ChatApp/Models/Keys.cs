@@ -8,7 +8,7 @@ namespace ChatApp.Models
         public const string TokenString = "token";
         public const string UserNameString = "user";
         public const string BaseApiUrl = "http://" + _globalUrl;
-        public const string BaseSocketUrl = "ws://" + _localUrl;
+        public const string BaseSocketUrl = "ws://" + _globalUrl;
 
         public const string ChatRoomPageString = "ChatRoomPage";
         public const string SignUpPageString = "SignUpPage";

@@ -18,13 +18,15 @@ namespace ChatApp.ViewModels
         private readonly IAuthApi _authApi;
         private readonly INavigationService _navigation;
         private readonly IPreferences _preferences;
+        private readonly Speaker _speaker;
         
-        public MainPageViewModel(IPreferences preferences, INavigationService navigation, 
-            IAuthApi authApi)
+        public MainPageViewModel(IPreferences preferences, INavigationService navigation,
+            Speaker speaker, IAuthApi authApi)
         {
             _authApi = authApi;
             _navigation = navigation;
             _preferences = preferences;
+            _speaker = speaker;
             
             ValidateSession();
             
@@ -41,6 +43,10 @@ namespace ChatApp.ViewModels
                     preferences.SetString(Keys.UserNameString, response.User.UserName);
 
                     await navigation.PushModalAsync(Keys.ChatRoomPageString);
+                }
+                else
+                {
+                    await _speaker.Speak(response.Msg);
                 }
             }, canExecute: () => true);
 

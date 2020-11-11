@@ -16,8 +16,9 @@ namespace ChatApp.Test
         {
             IAuthApi auth = new AuthFake();
             INavigationService nav = new NavigationStub();
+            Speaker speaker = new Speaker();
             _prefs = new PreferencesSpy();
-            _testVm = new MainPageViewModel(_prefs, nav, auth);
+            _testVm = new MainPageViewModel(_prefs, nav, speaker, auth);
         }
 
         [Test]
